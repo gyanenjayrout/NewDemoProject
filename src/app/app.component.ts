@@ -1,17 +1,61 @@
-import { Component } from '@angular/core';
+import { Component ,OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent  implements OnInit{
   title = 'sign-up';
-  count =0;
 
-  counter(type:string)
+
+  signupUsers : any[]=[];
+  signUpObj : any = {
+    userName:'',
+    email : '',
+    password : ''
+
+  };
+  loginObj : any = 
   {
-    type === 'add'? this.count++ :this.count--
+    userName:'',
+    password : ''
+
+  };
+  ngOnInit(): void {
     
+    
+    const localData = localStorage.getItem('signupUsers ');
+    if(localData != null)
+    {
+      this.signupUsers =JSON.parse(localData);
+    }
+
   }
+  onSignUp()
+  {
+    this.signupUsers.push(this.signUpObj);
+    localStorage.setItem('signupUsers',JSON.stringify(this.signupUsers));
+    this.signUpObj = {
+      userName:'',
+      email : '',
+      password : ''
+  
+
+
+  };
 }
+
+onLogin()
+{
+ console.log('userName',this.onLogin);
+ if(this.loginObj.username !='' &&  this.loginObj.password !='')
+ {
+  alert('user login successfully');
+ }
+ else{
+  alert('wrong credentials');
+ }
+}
+}
+
